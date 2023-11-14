@@ -24,7 +24,7 @@ class Player {
 
 		void UpdatePlayerState			(GT::PlayerState);
 		void UpdatePlayerWins			();
-		void UpdatePlayerPawns			(GT::Score);
+		void UpdatePlayerPawns			();
 };
 
 #endif

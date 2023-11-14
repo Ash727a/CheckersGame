@@ -27,7 +27,7 @@ int main(void)
 	move.Movement(3, 1, idiot2, GT::Right);
 
 	b->DrawBoard();
-
+	
 	delete b; 
 	delete idiot; 
 	delete idiot2; 

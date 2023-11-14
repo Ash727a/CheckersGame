@@ -16,12 +16,14 @@ class Board {
 
     public:
 
-        Board                 ();
-        virtual ~Board        ();
+        Board                        ();
+        virtual ~Board               ();
 
-        void initialize_Board ();
-        void UpdateInput      (GT::Coord, GT::Coord, enum GT::CellState);
-        void DrawBoard        ();
+        void initialize_Board        ();
+        void UpdateInput             (GT::Coord, GT::Coord, enum GT::CellState);
+        void DrawBoard               ();
+
+        GT::CellState get_CellState  (GT::Coord , GT::Coord ) const; 
 
 };
 #endif

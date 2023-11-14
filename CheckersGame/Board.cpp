@@ -48,9 +48,9 @@ void Board::DrawBoard()
 
         switch (i->second)
         {
-            case GT::BPAWN: std::cout << "|  O  "; break;
-            case GT::WPAWN: std::cout << "|  X  "; break;
-            case GT::EMPTY: std::cout << "|     "; break;
+            case GT::BPAWN: std::cout     << "|  "<<GT::bpawn<<"  "; break;
+            case GT::WPAWN: std::cout     << "|  "<<GT::wpawn<< "  "; break;
+            case GT::EMPTY: std::cout     << "|     "; break;
             default: break;
         }
 
@@ -58,4 +58,17 @@ void Board::DrawBoard()
         VIS::bottom_board(ctr);
     }
 
+}
+
+
+GT::CellState Board::get_CellState(GT::Coord y, GT::Coord x) const
+{
+    GT::Pair pair = std::make_pair(y, x); 
+
+    for (auto i = grid.begin(); i != grid.end(); i++) 
+    {
+        if (i->first == pair) return i->second; 
+    }
+
+    return GT::EMPTY; 
 }

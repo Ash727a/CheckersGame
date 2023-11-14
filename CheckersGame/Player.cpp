@@ -43,7 +43,7 @@ void Player::UpdatePlayerWins()
 	this->Wins++;
 }
 
-void Player::UpdatePlayerPawns(GT::Score CapturedPawns)
+void Player::UpdatePlayerPawns()
 {
-	this->CapturedPawns = CapturedPawns;
+	this->CapturedPawns++;
 }

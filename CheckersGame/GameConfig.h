@@ -7,7 +7,7 @@
 namespace GT
 {
 	// Cell states 
-	enum CellState { BPAWN, WPAWN, EMPTY };
+	enum CellState { EMPTY, BPAWN, WPAWN };
 	enum Error     {INVALIDMOVE , BADINPUT};
 
 
@@ -18,7 +18,9 @@ namespace GT
 	typedef std::map<std::pair<Coord, Coord>, GT::CellState>      Grid;
 	typedef bool                                                  PlayerState;
 	typedef char                                                  Diagonal; 
-
+	typedef std::pair<Coord, Coord>                               Pair; 
+	typedef char                                                  Character; 
+ 
 
 	// Board configurations would not suggest touching these lol 
 	const uint8_t  BoardSize   = 0x8;
@@ -28,8 +30,11 @@ namespace GT
 	const uint8_t  DeadSpace2  = 0x5;
 	const uint8_t  SideLimit   = 0x3;
 
-	const Diagonal Left  = 'L'; 
-	const Diagonal Right = 'R';
+	const Diagonal  Left       = 'L'; 
+	const Diagonal  Right      = 'R';
+
+	const Character bpawn      = 'O'; 
+	const Character wpawn      = 'X';
 
 };
 

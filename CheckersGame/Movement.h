@@ -15,7 +15,6 @@ public:
 
 	Move			(Board*);
 	virtual ~Move   ();
-
 	void Movement   (GT::Coord,GT::Coord, Player*, GT::Diagonal);
 	 
 };

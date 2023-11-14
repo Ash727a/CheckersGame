@@ -9,7 +9,8 @@ Move::Move(Board* board)
 
 Move::~Move()
 {
-
+	board         = nullptr; 
+	Currentplayer = nullptr; 
 }
 
 // logic functions to be added just a test
@@ -22,9 +23,11 @@ void Move::Movement(GT::Coord y, GT::Coord x, Player* CurrentPlayer, GT::Diagona
 	{
 		case GT::BPAWN: 
 
+				board->UpdateInput(y, x, GT::EMPTY);
+
 				if (side == GT::Right) 
 				{
-					board->UpdateInput(y, x, GT::EMPTY); 
+					if(board)
 
 					board->UpdateInput (
 						(y + 1), (x - 1), CurrentPlayer->get_PawnColor() 
@@ -32,7 +35,7 @@ void Move::Movement(GT::Coord y, GT::Coord x, Player* CurrentPlayer, GT::Diagona
 				}
 				else
 				{
-					board->UpdateInput(y, x, GT::EMPTY);
+					
 
 					board->UpdateInput (
 						(y + 1), (x + 1), CurrentPlayer->get_PawnColor() 
