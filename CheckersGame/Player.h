@@ -3,7 +3,7 @@
 
 #include "GameConfig.h"
 
-class Players {
+class Player {
 	private:
 
 		GT::Player       Name;
@@ -14,8 +14,8 @@ class Players {
 
 	public:
 
-		Players(const GT::Player&, const GT::CellState);
-		virtual ~Players();
+		Player(const GT::Player&, const GT::CellState);
+		virtual ~Player();
 
 		GT::Score     get_score			() const;
 		GT::Score     get_CapturedPawns () const;

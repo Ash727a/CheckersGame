@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Players::Players(const GT::Player& Name, const GT::CellState PawnColor)
+Player::Player(const GT::Player& Name, const GT::CellState PawnColor)
 {
 	this->Name = Name;
 	this->PawnColor = PawnColor;
@@ -8,42 +8,42 @@ Players::Players(const GT::Player& Name, const GT::CellState PawnColor)
 	this->CapturedPawns = 0;
 }
 
-Players::~Players()
+Player::~Player()
 {
 
 }
 
-GT::Score Players::get_score() const
+GT::Score Player::get_score() const
 {
 	return this->Wins;
 }
 
-GT::Player Players::get_name() const
+GT::Player Player::get_name() const
 {
 	return this->Name;
 }
 
-GT::Score  Players::get_CapturedPawns() const
+GT::Score  Player::get_CapturedPawns() const
 {
 	return this->CapturedPawns;
 }
 
-GT::CellState Players::get_PawnColor() const
+GT::CellState Player::get_PawnColor() const
 {
 	return this->PawnColor;
 }
 
-void Players::UpdatePlayerState(GT::PlayerState isPlaying)
+void Player::UpdatePlayerState(GT::PlayerState isPlaying)
 {
 	this->isPlaying = isPlaying;
 }
 
-void Players::UpdatePlayerWins()
+void Player::UpdatePlayerWins()
 {
 	this->Wins++;
 }
 
-void Players::UpdatePlayerPawns(GT::Score CapturedPawns)
+void Player::UpdatePlayerPawns(GT::Score CapturedPawns)
 {
 	this->CapturedPawns = CapturedPawns;
 }

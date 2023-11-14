@@ -129,11 +129,13 @@
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="CheckersGame.cpp" />
+    <ClCompile Include="Movement.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="GameConfig.h" />
+    <ClInclude Include="Movement.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Visuals.h" />
   </ItemGroup>

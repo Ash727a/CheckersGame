@@ -30,9 +30,9 @@ void Board::initialize_Board()
 
 
 // update the board based on coordinates called from an arbritary class 
-void Board::UpdateInput(GT::Coord x, GT::Coord y, enum GT::CellState Stone)
+void Board::UpdateInput(GT::Coord y, GT::Coord x, enum GT::CellState Stone)
 {
-    this->grid[{x, y}] = Stone;
+    this->grid[{y, x}] = Stone;
 }
 
 // outputs the board tc reduced from O(n^2) to O(n) ;) 
