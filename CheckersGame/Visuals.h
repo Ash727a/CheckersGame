@@ -4,7 +4,7 @@
 #include <iostream>
 #include "GameConfig.h"
 
-
+// this is where all the console output mess goes ... 
 
 namespace VIS {
 
@@ -25,10 +25,6 @@ namespace VIS {
 	{
 		if (ctr % GT::BoardSize == 0)  std::cout << "|\n  |_____|_____|_____|_____|_____|_____|_____|_____|\n";
 	}
-
-
-
-
 
 };
 

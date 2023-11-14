@@ -12,7 +12,7 @@ Board::~Board()
 
 }
 
-
+// inits the cell states for the grid 
 void Board::initialize_Board()
 {
     for (int i = 1; i <= GT::BoardSize; i++)
@@ -29,13 +29,13 @@ void Board::initialize_Board()
 }
 
 
-// update the board based on coordinates 
+// update the board based on coordinates called from an arbritary class 
 void Board::UpdateInput(GT::Coord x, GT::Coord y, enum GT::CellState Stone)
 {
     this->grid[{x, y}] = Stone;
 }
 
-
+// outputs the board tc reduced from O(n^2) to O(n) ;) 
 void Board::DrawBoard()
 {
     VIS::top_board(); 
