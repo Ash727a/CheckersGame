@@ -1,10 +1,11 @@
-// CheckersGame.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <iostream>
 
-int main()
+#include "Board.h"
+
+int main(void)
 {
-    std::cout << "Hello World\n";
+	Board b; 
+	b.DrawBoard(); 
 }
 
