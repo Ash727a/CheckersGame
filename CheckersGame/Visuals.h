@@ -26,10 +26,6 @@ namespace VIS {
 		if (ctr % GT::BoardSize == 0)  std::cout << "|\n  |_____|_____|_____|_____|_____|_____|_____|_____|\n";
 	}
 
-
-
-
-
 };
 
 #endif 
