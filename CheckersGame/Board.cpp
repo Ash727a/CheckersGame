@@ -35,7 +35,7 @@ void Board::UpdateInput(GT::Coord y, GT::Coord x, enum GT::CellState Stone)
     this->grid[{y, x}] = Stone;
 }
 
-// outputs the board tc reduced from O(n^2) to O(n) ;) 
+// outputs the board tc reduced from O(n^2) to O(n) tc
 void Board::DrawBoard()
 {
     VIS::top_board(); 
