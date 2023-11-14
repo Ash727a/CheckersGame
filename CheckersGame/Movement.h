@@ -17,8 +17,8 @@ public:
 	Move			  (Board*);
 	virtual ~Move     ();
 
-	void Movement     (GT::Coord,GT::Coord, Player*, GT::Diagonal);
-	bool Proc_Input   (const std::string&, const GT::CellState);
+	void MovPlayer(GT::Coord,GT::Coord, Player*, GT::Diagonal);
+	bool Validate_Input   (const std::string&, const GT::CellState);
 	 
 };
 #endif 
