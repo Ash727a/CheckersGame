@@ -23,18 +23,21 @@ namespace GT
  
 
 	// Board configurations would not suggest touching these lol 
-	const uint8_t  BoardSize   = 0x8;
-	const uint8_t  CharIndx    = 0x41;
-	const uint8_t  BoardOffset = 0x2;
-	const uint8_t  DeadSpace1  = 0x4;
-	const uint8_t  DeadSpace2  = 0x5;
-	const uint8_t  SideLimit   = 0x3;
+	const uint8_t   BoardSize   = 0x8;
+	const uint8_t   CharIndx    = 0x41;
+	const uint8_t   BoardOffset = 0x2;
+	const uint8_t   DeadSpace1  = 0x4;
+	const uint8_t   DeadSpace2  = 0x5;
+	const uint8_t   SideLimit   = 0x3;
+	const Character bpawn	    = 0x4f;
+	const Character wpawn       = 0x58;
 
-	const Diagonal  Left       = 'L'; 
-	const Diagonal  Right      = 'R';
+	// movement offsets
+	const uint8_t  yOffset      = 0x41; 
+	const uint8_t  xOffset      = 0x30;
+	const Diagonal  Left        = 0x4c; 
+	const Diagonal  Right       = 0x52;
 
-	const Character bpawn      = 'O'; 
-	const Character wpawn      = 'X';
 
 };
 

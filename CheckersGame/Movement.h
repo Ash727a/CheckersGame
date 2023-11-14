@@ -13,9 +13,12 @@ private:
 
 public:
 
-	Move			(Board*);
-	virtual ~Move   ();
-	void Movement   (GT::Coord,GT::Coord, Player*, GT::Diagonal);
+	Move(); 
+	Move			  (Board*);
+	virtual ~Move     ();
+
+	void Movement     (GT::Coord,GT::Coord, Player*, GT::Diagonal);
+	bool Proc_Input   (const std::string&, const GT::CellState);
 	 
 };
 #endif 

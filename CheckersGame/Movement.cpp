@@ -13,6 +13,8 @@ Move::~Move()
 	Currentplayer = nullptr; 
 }
 
+Move::Move() {}; 
+
 // logic functions to be added just a test
 
 void Move::Movement(GT::Coord y, GT::Coord x, Player* CurrentPlayer, GT::Diagonal side)
@@ -36,7 +38,6 @@ void Move::Movement(GT::Coord y, GT::Coord x, Player* CurrentPlayer, GT::Diagona
 				else
 				{
 					
-
 					board->UpdateInput (
 						(y + 1), (x + 1), CurrentPlayer->get_PawnColor() 
 					);
@@ -46,18 +47,17 @@ void Move::Movement(GT::Coord y, GT::Coord x, Player* CurrentPlayer, GT::Diagona
 
 		case GT::WPAWN:
 
+			board->UpdateInput(y, x, GT::EMPTY);
+
 			if (side == GT::Right)
 			{
-				board->UpdateInput(y, x, GT::EMPTY);
-
 				board->UpdateInput (
 					(y - 1), (x + 1), CurrentPlayer->get_PawnColor()
 				);
 			}
 			else
 			{
-				board->UpdateInput(y, x, GT::EMPTY);
-
+			
 				board->UpdateInput (
 					(y - 1), (x - 1), CurrentPlayer->get_PawnColor()
 				);
@@ -73,4 +73,16 @@ void Move::Movement(GT::Coord y, GT::Coord x, Player* CurrentPlayer, GT::Diagona
 
 	this->Currentplayer = nullptr; 
 
+}
+
+
+
+bool Move::Proc_Input(const std::string& input, const GT::CellState Pawn)
+{
+	int y = static_cast<GT::Coord>(input[0] - GT::yOffset); 
+	int x = static_cast<GT::Coord>(input[1] - GT::xOffset); 
+
+
+	std::cout << y <<" "<< x << std::endl;
+	return (x && y <= 7 && x && y >= 0) && !(board->get_CellState(y , x) == Pawn); 
 }
