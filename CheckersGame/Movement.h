@@ -4,6 +4,7 @@
 #include "Board.h" 
 #include "Player.h"
 
+
 class Move {
 
 private:
@@ -13,12 +14,13 @@ private:
 
 public:
 
-	Move(); 
-	Move			  (Board*);
-	virtual ~Move     ();
+	Move						(); 
+	Move						(Board*);
+	virtual ~Move				();
 
-	void MovPlayer(GT::Coord,GT::Coord, Player*, GT::Diagonal);
-	bool Validate_Input   (const std::string&, const GT::CellState);
+	void MovPlayer				(const std::string& input, Player*, GT::Diagonal);
+	bool Validate_Input			(const std::string&);
+	bool Validate_Next			(const std::string&, const GT::Diagonal);
 	 
 };
 #endif 
