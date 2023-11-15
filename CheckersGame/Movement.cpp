@@ -19,8 +19,7 @@ Move::~Move()
 Move::Move() 
 {
 
-}; 
-
+}
 // logic functions to be added just a test
 
 void Move::MovPlayer(const std::string& input, Player* CurrentPlayer, GT::Diagonal side)
