@@ -13,7 +13,7 @@ int main(void)
 
 	board->DrawBoard(); // some testing of game logic its a mess it will be revamped 
 
-	if (m.Validate_Input("D7") && m.Validate_Next("D7", GT::Right)) std::cout << "Good!\n";
+	if (m.Validate_Input("A2") && m.Validate_Next("A2", GT::Right)) std::cout << "Good!\n";
 	else std::cout << "bad"; 
 
 	if (m.Validate_Input("D5") && m.Validate_Next("D5", GT::Right)) std::cout << "Good!\n";

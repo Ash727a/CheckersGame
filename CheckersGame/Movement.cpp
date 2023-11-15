@@ -79,7 +79,6 @@ void Move::MovPlayer(const std::string& input, Player* CurrentPlayer, GT::Diagon
 
 }
 
-
 bool Move::Validate_Input(const std::string& input)
 {
 	int x = static_cast<GT::Coord>(input[0] - GT::yOffset); 
@@ -99,11 +98,11 @@ bool Move::Validate_Next(const std::string& input, const GT::Diagonal Side)
 		case GT::BPAWN:
 
 
-			if (board->get_CellState((y + 1), (x - 1)) != GT::BPAWN && Side == GT::Right)
+			if (board->get_CellState((y + 1), (x - 1)) != GT::BPAWN && Side == GT::Right && (y + 1) <= 7 && (x - 1) >= 0)
 			{
 				return true; 
 			}
-			else if(board->get_CellState((y + 1), (x + 1)) != GT::BPAWN && Side == GT::Left)
+			else if(board->get_CellState((y + 1), (x + 1)) != GT::BPAWN && Side == GT::Left && (y + 1) <= 7 && (x + 1) <= 7)
 			{
 				return true; 
 			}
@@ -112,17 +111,16 @@ bool Move::Validate_Next(const std::string& input, const GT::Diagonal Side)
 
 		case GT::WPAWN:
 
-			if (board->get_CellState((y - 1), (x + 1)) != GT::WPAWN && Side == GT::Right)
+			if (board->get_CellState((y - 1), (x + 1)) != GT::WPAWN && Side == GT::Right && (y - 1) >= 0 && (x + 1) <= 7)
 			{
 				return true;
 			}
-			else if (board->get_CellState((y - 1), (x - 1)) != GT::WPAWN && Side == GT::Left)
+			else if (board->get_CellState((y - 1), (x - 1)) != GT::WPAWN && Side == GT::Left && (y - 1) >= 0 && (x - 1) >= 0)
 			{
 				return true;
 			}
 
 			break;
-
 
 		default: break;
 
