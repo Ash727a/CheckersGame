@@ -23,14 +23,50 @@ void Move::MovPlayer(GT::Coord y, GT::Coord x, Player* CurrentPlayer, GT::Diagon
 
 				if (side == GT::Right) 
 				{
+					if (board->get_CellState((y + 1), (x - 1)) == GT::WPAWN) 
+					{ 
+						CurrentPlayer->UpdatePlayerPawns(); 
+						std::cout<<"\n"<< CurrentPlayer->get_name() << "Scored one!\n\n"; 
+					}
+
 					board->UpdateInput (
 						(y + 1), (x - 1), CurrentPlayer->get_PawnColor()  // instead of nesting have game logic replace this part 
 					); 
 				}
-				else
+				else if(side == GT::Left)
 				{
+					if (board->get_CellState((y + 1), (x + 1)) == GT::WPAWN)
+					{ 
+						CurrentPlayer->UpdatePlayerPawns(); 
+						std::cout << "\n" << CurrentPlayer->get_name() << "Scored one!\n\n"; 
+					}
+
 					board->UpdateInput (
 						(y + 1), (x + 1), CurrentPlayer->get_PawnColor() 
+					);
+				}
+				else if (side == GT::BottomLeft)
+				{
+					if (board->get_CellState((y - 1), (x + 1)) == GT::WPAWN)
+					{
+						CurrentPlayer->UpdatePlayerPawns();
+						std::cout << "\n" << CurrentPlayer->get_name() << "Scored one!\n\n";
+					}
+
+					board->UpdateInput(
+						(y - 1), (x + 1), CurrentPlayer->get_PawnColor()
+					);
+				}
+				else if (side == GT::BottomRight)
+				{
+					if (board->get_CellState((y - 1), (x - 1)) == GT::WPAWN)
+					{
+						CurrentPlayer->UpdatePlayerPawns();
+						std::cout << "\n" << CurrentPlayer->get_name() << "Scored one!\n\n";
+					}
+
+					board->UpdateInput(
+						(y - 1), (x - 1), CurrentPlayer->get_PawnColor()
 					);
 				}
 
@@ -42,15 +78,50 @@ void Move::MovPlayer(GT::Coord y, GT::Coord x, Player* CurrentPlayer, GT::Diagon
 
 			if (side == GT::Right)
 			{
+
+				if (board->get_CellState((y - 1), (x + 1)) == GT::BPAWN) 
+				{ 
+					CurrentPlayer->UpdatePlayerPawns();
+					std::cout << "\n" << CurrentPlayer->get_name() << "Scored one!\n\n";
+				}
+
 				board->UpdateInput (
 					(y - 1), (x + 1), CurrentPlayer->get_PawnColor()
 				);
 			}
-			else
+			else if(side == GT::Left)
 			{
-			
+				if (board->get_CellState((y - 1), (x - 1)) == GT::BPAWN)
+				{ 
+					CurrentPlayer->UpdatePlayerPawns(); 
+					std::cout << "\n" << CurrentPlayer->get_name() << "Scored one!\n\n"; 
+				}
 				board->UpdateInput (
 					(y - 1), (x - 1), CurrentPlayer->get_PawnColor()
+				);
+			}
+			else if (side == GT::BottomLeft)
+			{
+				if (board->get_CellState((y + 1), (x - 1)) == GT::BPAWN)
+				{
+					CurrentPlayer->UpdatePlayerPawns();
+					std::cout << "\n" << CurrentPlayer->get_name() << "Scored one!\n\n";
+				}
+
+				board->UpdateInput(
+					(y + 1), (x - 1), CurrentPlayer->get_PawnColor()
+				);
+			}
+			else if (side == GT::BottomRight)
+			{
+				if (board->get_CellState((y + 1), (x + 1)) == GT::BPAWN)
+				{
+					CurrentPlayer->UpdatePlayerPawns();
+					std::cout << "\n" << CurrentPlayer->get_name() << "Scored one!\n\n";
+				}
+
+				board->UpdateInput(
+					(y + 1), (x + 1), CurrentPlayer->get_PawnColor()  
 				);
 			}
 
@@ -81,7 +152,7 @@ bool Move::Validate_Next(GT::Coord y,GT::Coord x, const GT::Diagonal Side) // lo
 	{
 		case GT::BPAWN:
 
-
+			
 			if (board->get_CellState((y + 1), (x - 1)) != GT::BPAWN && Side == GT::Right && (y + 1) <= 7 && (x - 1) >= 0)
 			{
 				return true; 
@@ -89,6 +160,14 @@ bool Move::Validate_Next(GT::Coord y,GT::Coord x, const GT::Diagonal Side) // lo
 			else if(board->get_CellState((y + 1), (x + 1)) != GT::BPAWN && Side == GT::Left && (y + 1) <= 7 && (x + 1) <= 7)
 			{
 				return true; 
+			}
+			else if (board->get_CellState((y - 1), (x + 1)) != GT::BPAWN && Side == GT::BottomLeft && (y - 1) >= 0 && (x + 1) <= 7)
+			{
+				return true;
+			}
+			else if (board->get_CellState((y - 1), (x - 1)) != GT::BPAWN && Side == GT::BottomRight && (y - 1) >= 0 && (x - 1) >= 0)
+			{
+				return true;
 			}
 
 		break;
@@ -100,6 +179,14 @@ bool Move::Validate_Next(GT::Coord y,GT::Coord x, const GT::Diagonal Side) // lo
 				return true;
 			}
 			else if (board->get_CellState((y - 1), (x - 1)) != GT::WPAWN && Side == GT::Left && (y - 1) >= 0 && (x - 1) >= 0)
+			{
+				return true;
+			}
+			else if (board->get_CellState((y + 1), (x - 1)) != GT::WPAWN && Side == GT::BottomLeft && (y + 1) <= 7 && (x - 1) >= 0)
+			{
+				return true;
+			}
+			else if (board->get_CellState((y + 1), (x + 1)) != GT::WPAWN && Side == GT::BottomRight && (y + 1) <= 7 && (x + 1) <= 7)
 			{
 				return true;
 			}

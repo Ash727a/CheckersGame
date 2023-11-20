@@ -8,9 +8,11 @@
 
 namespace GT
 {
+
+
 	// Cell states 
 	enum CellState { EMPTY, BPAWN, WPAWN };
-	enum Error     {INVALIDMOVE , BADINPUT};
+	enum Error     {INVALIDMOVE , BADINPUT, FILERRR,NOTFOUND};
 
 
 	// Game typedefs 
@@ -25,6 +27,21 @@ namespace GT
 	typedef std::string											  Inputs; 
 	typedef std::set<std::pair<char, char>>						  InputHolder;
 	typedef bool												  Check; 
+	typedef int													  Pawnss; 
+	typedef std::string											  GameName; 
+	typedef bool                                                  GameStatus;
+
+	
+	struct GameInput {
+
+		GT::Inputs   PawnLocation;
+		GT::Diagonal Diag;
+		GT::Player   Currentplayer;
+
+	};
+
+	typedef std::list<GameInput>								  GameInputs; 
+	typedef std::string											  Filename; 
  
 
 	// Board configurations would not suggest touching these lol 
@@ -42,7 +59,13 @@ namespace GT
 	const uint8_t   xOffset      = 0x30;
 	const Diagonal  Left         = 0x4c; 
 	const Diagonal  Right        = 0x52;
+	const Diagonal  BottomRight  = 'K'; 
+	const Diagonal  BottomLeft   = 'B';
 
+
+	const Filename GameLog   = "GameLogs";
+	const Filename ScoreLog  = "ScoreLogs"; 
+	const Filename GameNames = "GameNameLog"; 
 
 };
 

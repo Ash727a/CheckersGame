@@ -122,3 +122,4 @@ void Board::bottom_board(uint8_t ctr)
         std::cout << "|\n  |_____|_____|_____|_____|_____|_____|_____|_____|\n";
     }
 }
+

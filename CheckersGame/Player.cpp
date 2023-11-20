@@ -1,5 +1,10 @@
 #include "Player.h"
 
+Player::Player()
+{
+
+}
+
 Player::Player(const GT::Player& Name, const GT::CellState PawnColor)
 {
 	this->Name = Name;
@@ -67,11 +72,10 @@ void Player::UpdateInputs(Board* board) // updates all possible inputs
 	{
 		for (int j = 0; j < GT::BoardSize; j++)
 		{
-			if (board->get_CellState(i, j) == PawnColor)
+			if (board->get_CellState(j, i) == PawnColor)
 			{
 				PossibleInputs.insert(std::make_pair(static_cast<char>(i + GT::yOffset), static_cast<char>(j + GT::xOffset)));
 			}
-
 		}
 	}
 
@@ -79,9 +83,14 @@ void Player::UpdateInputs(Board* board) // updates all possible inputs
 
 void Player::Display_PossibleInputs()
 {
-	for (const auto& element : PossibleInputs)
+	for (const auto& i : PossibleInputs)
 	{
-		std::cout << "(" << element.first << element.second << ") ";
+		std::cout << "(" << i.first << i.second << ") ";
 	}
+}
+
+GT::Pawnss Player::Remaining_Pawns() const
+{
+	return this->PossibleInputs.size(); 
 }
 

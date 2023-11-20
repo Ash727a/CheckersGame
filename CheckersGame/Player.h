@@ -17,6 +17,7 @@ class Player {
 
 	public:
 
+		Player (); 
 		Player(const GT::Player&, const GT::CellState);
 		virtual ~Player();
 
@@ -24,12 +25,14 @@ class Player {
 		GT::Score     get_CapturedPawns () const;
 		GT::Player    get_name			() const;
 		GT::CellState get_PawnColor		() const;
+		GT::Pawnss    Remaining_Pawns   () const;
 
 		void UpdatePlayerState			(GT::PlayerState);
 		void UpdatePlayerWins			();
 		void UpdatePlayerPawns			();
 		void UpdateInputs				(Board*); 
 		void Display_PossibleInputs     (); 
+		
 };
 
 #endif

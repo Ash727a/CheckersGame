@@ -1,11 +1,35 @@
-#pragma once
-/*
+#ifndef LOGS_H
+#define LOGS_H
 
-	- General game logs  logs events, states, errors, etc
-	- Game logs for replays
+#include <iostream> 
+#include <fstream>
+#include <string>
 
-*/
-class Logs
-{
+#include "GameConfig.h" 
+
+
+
+class Logs {
+	
+
+	private:
+
+		GT::GameInputs Inputs;  // for Game logs 
+
+	public:
+
+		Logs						(); 
+		~Logs						(); 
+
+		void Input_GameLog			(GT::Inputs,GT::Diagonal,GT::Player);
+		void Write_Inputs			(const std::string&);
+		void Read_Inputs			(const std::string& GameName);
+		void AppendPlayerScores		(); 
+		void AppendGameName         (const std::string&); 
+
 };
+
+
+#endif // !LOGS_H
+
 
