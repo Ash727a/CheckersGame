@@ -2,6 +2,8 @@
 #define PLAYER_H
 
 #include "GameConfig.h"
+#include "Board.h"
+#include <set>
 
 class Player {
 	private:
@@ -11,6 +13,7 @@ class Player {
 		GT::Score		 CapturedPawns;
 		GT::PlayerState  isPlaying;
 		GT::CellState    PawnColor;
+		GT::InputHolder  PossibleInputs; 
 
 	public:
 
@@ -25,6 +28,8 @@ class Player {
 		void UpdatePlayerState			(GT::PlayerState);
 		void UpdatePlayerWins			();
 		void UpdatePlayerPawns			();
+		void UpdateInputs				(Board*); 
+		void Display_PossibleInputs     (); 
 };
 
 #endif

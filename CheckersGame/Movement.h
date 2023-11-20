@@ -7,20 +7,20 @@
 
 class Move {
 
-private:
+	private:
 
-	Board*   board;
-	Player* Currentplayer;
+		Board*   board;
 
-public:
+	public:
 
-	Move						(); 
-	Move						(Board*);
-	virtual ~Move				();
+		Move						(Board*);
+		virtual ~Move				();
 
-	void MovPlayer				(const std::string& input, Player*, GT::Diagonal);
-	bool Validate_Input			(const std::string&);
-	bool Validate_Next			(const std::string&, const GT::Diagonal);
+		void MovPlayer				(GT::Coord,GT::Coord, Player*, GT::Diagonal);
+		bool Validate_Input			(GT::Coord y, GT::Coord x); 
+
+		bool Validate_Next			(GT::Coord, GT::Coord, const GT::Diagonal); 
+		bool CheckPlayerPawn		(Player*, GT::Coord, GT::Coord); 
 	 
 };
 #endif 

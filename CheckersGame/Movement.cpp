@@ -2,30 +2,18 @@
 #include "GameConfig.h"
 
 
-
-
 Move::Move(Board* board)
 {
-	this->board         = board;
-	this->Currentplayer = nullptr; 
+	this->board = board;
 }
 
 Move::~Move()
 {
-	board         = nullptr; 
-	Currentplayer = nullptr; 
+	board = nullptr; 
 }
 
-Move::Move() 
-{
-
-}
-// logic functions to be added just a test
-
-void Move::MovPlayer(const std::string& input, Player* CurrentPlayer, GT::Diagonal side)
+void Move::MovPlayer(GT::Coord y, GT::Coord x, Player* CurrentPlayer, GT::Diagonal side)
 { 
-	int x = static_cast<GT::Coord>(input[0] - GT::yOffset);
-	int y = static_cast<GT::Coord>(input[1] - GT::xOffset);
 
 	switch (CurrentPlayer->get_PawnColor())
 	{
@@ -35,9 +23,8 @@ void Move::MovPlayer(const std::string& input, Player* CurrentPlayer, GT::Diagon
 
 				if (side == GT::Right) 
 				{
-				
 					board->UpdateInput (
-						(y + 1), (x - 1), CurrentPlayer->get_PawnColor() 
+						(y + 1), (x - 1), CurrentPlayer->get_PawnColor()  // instead of nesting have game logic replace this part 
 					); 
 				}
 				else
@@ -75,23 +62,21 @@ void Move::MovPlayer(const std::string& input, Player* CurrentPlayer, GT::Diagon
 
 	}
 
-
 }
 
-bool Move::Validate_Input(const std::string& input)
+bool Move::Validate_Input(GT::Coord y, GT::Coord x) // validates coordinates 
 {
-	int x = static_cast<GT::Coord>(input[0] - GT::yOffset); 
-	int y = static_cast<GT::Coord>(input[1] - GT::xOffset); 
-
-	std::cout << x << " " << y << " "; 
-	return ((x && y <= 7) && (x && y >= 0));
+	return (x <= 7 && x >= 0) && (y <= 7 && y >= 0);
 }
 
-bool Move::Validate_Next(const std::string& input, const GT::Diagonal Side)
-{
-	int x = static_cast<GT::Coord>(input[0] - GT::yOffset);
-	int y = static_cast<GT::Coord>(input[1] - GT::xOffset);
 
+bool Move::CheckPlayerPawn(Player* currentPlayer, GT::Coord y, GT::Coord x) // validates if the selected coordinates match player stone
+{
+	return currentPlayer->get_PawnColor() == board->get_CellState(y, x); 
+}
+
+bool Move::Validate_Next(GT::Coord y,GT::Coord x, const GT::Diagonal Side) // logic to validate the movements 
+{
 	switch (board->get_CellState(y,x)) 
 	{
 		case GT::BPAWN:
@@ -122,7 +107,6 @@ bool Move::Validate_Next(const std::string& input, const GT::Diagonal Side)
 			break;
 
 		default: break;
-
 
 	}
 	return false; 
