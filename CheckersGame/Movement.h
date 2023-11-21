@@ -13,13 +13,14 @@ class Move {
 
 	public:
 
-		Move						(Board*);
+		Move					(Board*);
 		virtual ~Move				();
 
 		void MovPlayer				(GT::Coord,GT::Coord, Player*, GT::Diagonal);
 		bool Validate_Input			(GT::Coord , GT::Coord ); 
 
 		bool Validate_Next			(GT::Coord, GT::Coord, const GT::Diagonal); 
-		bool CheckPlayerPawn		(Player*, GT::Coord, GT::Coord); 	 
+		bool CheckPlayerPawn		(Player*, GT::Coord, GT::Coord); 
+	 
 };
 #endif 
