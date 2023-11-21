@@ -24,7 +24,7 @@ void Game::Menu()
 	{
 			std::cout
 			<< "| a) Play Checkers         \n"
-			<< "| b) Game Logs & Replays   \n"
+			<< "| b) Game Logs             \n"
 			<< "| c) Exit                  \n";
 
 		std::cout << "\nSelect from (a - c) \n";
@@ -36,6 +36,7 @@ void Game::Menu()
 	switch (tmp)
 	{
 		case 'a': 
+				LoadGameSettings();
 			break; 
 
 		case 'b':
@@ -62,7 +63,6 @@ bool Game::get_programStat()
 void Game::GameP()
 {
 	Menu(); 
-	LoadGameSettings(); 
 }
 
 void Game::LoadLogMenu()
@@ -189,6 +189,10 @@ void Game::Load_Game()
 		swap_turns();
 		
 	}
+
+	Show_Winners(); 
+	Destroy_All();
+	Menu(); 
 }
 
 void Game::swap_turns()
@@ -205,17 +209,18 @@ void Game::swap_turns()
 
 bool Game::Validate_PlayerInput(const GT::Inputs& input, char side, Player* player)
 {
-	InputHandler* IH = new InputHandler; 
+	InputHandler IH;
 
-	IH->ParseInputs(input); 
+	IH.ParseInputs(input); 
 		if
 		(
-			Movement->Validate_Input (IH->get_y(), IH->get_x())          &&
-			Movement->CheckPlayerPawn(player, IH->get_y(), IH->get_x())  &&
-			Movement->Validate_Next  (IH->get_y(), IH->get_x(), side)
+			Movement->Validate_Input (IH.get_y(), IH.get_x())          &&
+			Movement->CheckPlayerPawn(player, IH.get_y(), IH.get_x())  &&
+			Movement->Validate_Next  (IH.get_y(), IH.get_x(), side)
 		)
 		{
-			Movement->MovPlayer(IH->get_y(), IH->get_x(), player, side);
+			Movement->MovPlayer(IH.get_y(), IH.get_x(), player, side);
+			Logger.Input_GameLog(input, side, player->get_name()); 
 			return true; 
 		}
 		else
@@ -223,6 +228,56 @@ bool Game::Validate_PlayerInput(const GT::Inputs& input, char side, Player* play
 			std::cout << "Please re-enter your input bad input detected \n";
 			return false;
 		}
+}
+
+void Game::Show_Winners()
+{
+	if (Player1->get_score() > Player2->get_score())
+	{
+		std::cout<<"\n"<< Player1->get_name() << " Won this match \n";
+	}
+	else if (Player1->get_score() < Player2->get_score())
+	{
+		std::cout<<"\n"<< Player2->get_name() << " Won this match \n";
+	}
+	else
+	{
+		std::cout<<"\n" << "Tie \n";
+	}
+
+	try
+	{
+		Logger.Write_Inputs(gamename);
+	}
+	catch (GT::Error)
+	{
+		std::cout << "Unable to write to file check file configurations \n";
+	}
+
+	try
+	{
+		Logger.AppendGameName(gamename);
+	}
+	catch (GT::Error)
+	{
+		std::cout << "Unable to write to file check file configurations \n"; 
+	}
+	
+	 
+}
+
+void Game::Destroy_All()
+{
+	delete this->Player1; 
+	delete this->Player2; 
+	delete this->board; 
+	delete this->Movement; 
+	this->currentPlayer = nullptr; 
+}
+
+void Game::load_logs()
+{
+	std::cout << "Recent Games here: \n"; 
 }
 
 

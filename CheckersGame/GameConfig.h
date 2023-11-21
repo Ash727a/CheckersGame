@@ -59,8 +59,8 @@ namespace GT
 	const uint8_t   xOffset      = 0x30;
 	const Diagonal  Left         = 0x4c; 
 	const Diagonal  Right        = 0x52;
-	const Diagonal  BottomRight  = 'K'; 
-	const Diagonal  BottomLeft   = 'B';
+	const Diagonal  BottomRight  = 0x4B; 
+	const Diagonal  BottomLeft   = 0x42;
 
 
 	const Filename GameLog   = "GameLogs";

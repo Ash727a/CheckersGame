@@ -85,12 +85,12 @@ void Logs::Read_Inputs(const std::string& GameName) // use this to pass in a que
         }
         else
         {
-            throw(GT::NOTFOUND);
+            std::cout << "Nothing here exists \n"; 
         }
     }
     else
     {
-        throw(GT::FILERRR); 
+        std::cout << "File error\n"; 
     }
 
     delete GameLog; 

@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Movement.h" 
 #include "InputHandler.h"
+#include "Logs.h"
 
 class Game {
 
@@ -18,9 +19,9 @@ class Game {
 		Player* currentPlayer;
 		Player* Player1; 
 		Player* Player2; 
-		Board *  board; 
-
-		Move  * Movement;
+		Board*  board; 
+		Move*  Movement;
+		Logs   Logger; 
 
 	public: 
 
@@ -34,6 +35,9 @@ class Game {
 		void Load_Game					(); 
 		void swap_turns					(); 
 		bool Validate_PlayerInput		(const GT::Inputs&, char, Player*);
+		void Show_Winners				(); 
+		void Destroy_All				(); 
+		void load_logs                  (); 
 
 
 

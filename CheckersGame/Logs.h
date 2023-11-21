@@ -24,7 +24,6 @@ class Logs {
 		void Input_GameLog			(GT::Inputs,GT::Diagonal,GT::Player);
 		void Write_Inputs			(const std::string&);
 		void Read_Inputs			(const std::string& GameName);
-		void AppendPlayerScores		(); 
 		void AppendGameName         (const std::string&); 
 
 };
