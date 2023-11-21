@@ -12,128 +12,35 @@ Move::~Move()
 	board = nullptr; 
 }
 
+
 void Move::MovPlayer(GT::Coord y, GT::Coord x, Player* CurrentPlayer, GT::Diagonal side)
-{ 
+{
+	GT::CellState currentColor = CurrentPlayer->get_PawnColor();
 
-	switch (CurrentPlayer->get_PawnColor())
+	board->UpdateInput(y, x, GT::EMPTY);
+
+	GT::Coord targetY, targetX;
+
+	switch (side)
 	{
-		case GT::BPAWN: 
+		case GT::Right      : targetY = (currentColor == GT::BPAWN) ? y + 1 : y - 1; targetX = (currentColor == GT::BPAWN) ? x - 1 : x + 1; break;
+		case GT::Left       : targetY = (currentColor == GT::BPAWN) ? y + 1 : y - 1; targetX = (currentColor == GT::BPAWN) ? x + 1 : x - 1; break;
+		case GT::BottomRight: targetY = (currentColor == GT::BPAWN) ? y - 1 : y + 1; targetX = (currentColor == GT::BPAWN) ? x - 1 : x + 1; break;
+		case GT::BottomLeft : targetY = (currentColor == GT::BPAWN) ? y - 1 : y + 1; targetX = (currentColor == GT::BPAWN) ? x + 1 : x - 1; break;
 
-				board->UpdateInput(y, x, GT::EMPTY);
-
-				if (side == GT::Right) 
-				{
-					if (board->get_CellState((y + 1), (x - 1)) == GT::WPAWN) 
-					{ 
-						CurrentPlayer->UpdatePlayerPawns(); 
-						std::cout<<"\n"<< CurrentPlayer->get_name() << "Scored one!\n\n"; 
-					}
-
-					board->UpdateInput (
-						(y + 1), (x - 1), CurrentPlayer->get_PawnColor()  // instead of nesting have game logic replace this part 
-					); 
-				}
-				else if(side == GT::Left)
-				{
-					if (board->get_CellState((y + 1), (x + 1)) == GT::WPAWN)
-					{ 
-						CurrentPlayer->UpdatePlayerPawns(); 
-						std::cout << "\n" << CurrentPlayer->get_name() << "Scored one!\n\n"; 
-					}
-
-					board->UpdateInput (
-						(y + 1), (x + 1), CurrentPlayer->get_PawnColor() 
-					);
-				}
-				else if (side == GT::BottomLeft)
-				{
-					if (board->get_CellState((y - 1), (x + 1)) == GT::WPAWN)
-					{
-						CurrentPlayer->UpdatePlayerPawns();
-						std::cout << "\n" << CurrentPlayer->get_name() << "Scored one!\n\n";
-					}
-
-					board->UpdateInput(
-						(y - 1), (x + 1), CurrentPlayer->get_PawnColor()
-					);
-				}
-				else if (side == GT::BottomRight)
-				{
-					if (board->get_CellState((y - 1), (x - 1)) == GT::WPAWN)
-					{
-						CurrentPlayer->UpdatePlayerPawns();
-						std::cout << "\n" << CurrentPlayer->get_name() << "Scored one!\n\n";
-					}
-
-					board->UpdateInput(
-						(y - 1), (x - 1), CurrentPlayer->get_PawnColor()
-					);
-				}
-
-		break; 
-
-		case GT::WPAWN:
-
-			board->UpdateInput(y, x, GT::EMPTY);
-
-			if (side == GT::Right)
-			{
-
-				if (board->get_CellState((y - 1), (x + 1)) == GT::BPAWN) 
-				{ 
-					CurrentPlayer->UpdatePlayerPawns();
-					std::cout << "\n" << CurrentPlayer->get_name() << "Scored one!\n\n";
-				}
-
-				board->UpdateInput (
-					(y - 1), (x + 1), CurrentPlayer->get_PawnColor()
-				);
-			}
-			else if(side == GT::Left)
-			{
-				if (board->get_CellState((y - 1), (x - 1)) == GT::BPAWN)
-				{ 
-					CurrentPlayer->UpdatePlayerPawns(); 
-					std::cout << "\n" << CurrentPlayer->get_name() << "Scored one!\n\n"; 
-				}
-				board->UpdateInput (
-					(y - 1), (x - 1), CurrentPlayer->get_PawnColor()
-				);
-			}
-			else if (side == GT::BottomLeft)
-			{
-				if (board->get_CellState((y + 1), (x - 1)) == GT::BPAWN)
-				{
-					CurrentPlayer->UpdatePlayerPawns();
-					std::cout << "\n" << CurrentPlayer->get_name() << "Scored one!\n\n";
-				}
-
-				board->UpdateInput(
-					(y + 1), (x - 1), CurrentPlayer->get_PawnColor()
-				);
-			}
-			else if (side == GT::BottomRight)
-			{
-				if (board->get_CellState((y + 1), (x + 1)) == GT::BPAWN)
-				{
-					CurrentPlayer->UpdatePlayerPawns();
-					std::cout << "\n" << CurrentPlayer->get_name() << "Scored one!\n\n";
-				}
-
-				board->UpdateInput(
-					(y + 1), (x + 1), CurrentPlayer->get_PawnColor()  
-				);
-			}
-
-		break;
-
-
-		default: break; 
-
-
+		default: break;
 	}
 
+	if (board->get_CellState(targetY, targetX) == (currentColor == GT::BPAWN ? GT::WPAWN : GT::BPAWN))
+	{
+		CurrentPlayer->UpdatePlayerPawns();
+		std::cout << "\n" << CurrentPlayer->get_name() << " Scored one!\n\n";
+	}
+
+	board->UpdateInput(targetY, targetX, currentColor);
 }
+
+
 
 bool Move::Validate_Input(GT::Coord y, GT::Coord x) // validates coordinates 
 {
@@ -146,55 +53,22 @@ bool Move::CheckPlayerPawn(Player* currentPlayer, GT::Coord y, GT::Coord x) // v
 	return currentPlayer->get_PawnColor() == board->get_CellState(y, x); 
 }
 
-bool Move::Validate_Next(GT::Coord y,GT::Coord x, const GT::Diagonal Side) // logic to validate the movements 
+
+
+bool Move::Validate_Next(GT::Coord y, GT::Coord x, const GT::Diagonal Side)
 {
-	switch (board->get_CellState(y,x)) 
+	GT::CellState pawnColor = board->get_CellState(y, x);
+
+	GT::Coord targetY = 0, targetX = 0;
+
+	switch (Side)
 	{
-		case GT::BPAWN:
-
-			
-			if (board->get_CellState((y + 1), (x - 1)) != GT::BPAWN && Side == GT::Right && (y + 1) <= 7 && (x - 1) >= 0)
-			{
-				return true; 
-			}
-			else if(board->get_CellState((y + 1), (x + 1)) != GT::BPAWN && Side == GT::Left && (y + 1) <= 7 && (x + 1) <= 7)
-			{
-				return true; 
-			}
-			else if (board->get_CellState((y - 1), (x + 1)) != GT::BPAWN && Side == GT::BottomLeft && (y - 1) >= 0 && (x + 1) <= 7)
-			{
-				return true;
-			}
-			else if (board->get_CellState((y - 1), (x - 1)) != GT::BPAWN && Side == GT::BottomRight && (y - 1) >= 0 && (x - 1) >= 0)
-			{
-				return true;
-			}
-
-		break;
-
-		case GT::WPAWN:
-
-			if (board->get_CellState((y - 1), (x + 1)) != GT::WPAWN && Side == GT::Right && (y - 1) >= 0 && (x + 1) <= 7)
-			{
-				return true;
-			}
-			else if (board->get_CellState((y - 1), (x - 1)) != GT::WPAWN && Side == GT::Left && (y - 1) >= 0 && (x - 1) >= 0)
-			{
-				return true;
-			}
-			else if (board->get_CellState((y + 1), (x - 1)) != GT::WPAWN && Side == GT::BottomLeft && (y + 1) <= 7 && (x - 1) >= 0)
-			{
-				return true;
-			}
-			else if (board->get_CellState((y + 1), (x + 1)) != GT::WPAWN && Side == GT::BottomRight && (y + 1) <= 7 && (x + 1) <= 7)
-			{
-				return true;
-			}
-
-			break;
-
+		case GT::Right:        targetY = (pawnColor == GT::BPAWN) ? y + 1 : y - 1; targetX = (pawnColor == GT::BPAWN) ? x - 1 : x + 1; break;
+		case GT::Left:         targetY = (pawnColor == GT::BPAWN) ? y + 1 : y - 1; targetX = (pawnColor == GT::BPAWN) ? x + 1 : x - 1; break;
+		case GT::BottomLeft:   targetY = (pawnColor == GT::BPAWN) ? y - 1 : y + 1; targetX = (pawnColor == GT::BPAWN) ? x + 1 : x - 1; break;
+		case GT::BottomRight:  targetY = (pawnColor == GT::BPAWN) ? y - 1 : y + 1; targetX = (pawnColor == GT::BPAWN) ? x - 1 : x + 1; break;
 		default: break;
-
 	}
-	return false; 
+
+	return Validate_Input(targetY, targetX) && board->get_CellState(targetY, targetX) != pawnColor; 
 }
