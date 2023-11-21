@@ -1,4 +1,4 @@
-=#ifndef MOVEMENT_H
+#ifndef MOVEMENT_H
 #define MOVEMENT_H 
 
 #include "Board.h" 
