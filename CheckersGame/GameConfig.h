@@ -24,11 +24,11 @@ namespace GT
 	typedef char                                                  Diagonal; 
 	typedef std::pair<Coord, Coord>                               Pair; 
 	typedef char                                                  Character; 
-	typedef std::string											  Inputs; 
-	typedef std::set<std::pair<char, char>>						  InputHolder;
-	typedef bool												  Check; 
-	typedef int													  Pawnss; 
-	typedef std::string											  GameName; 
+	typedef std::string					      Inputs; 
+	typedef std::set<std::pair<char, char>>			      InputHolder;
+	typedef bool					              Check; 
+	typedef int					              Pawnss; 
+	typedef std::string				              GameName; 
 	typedef bool                                                  GameStatus;
 
 	
