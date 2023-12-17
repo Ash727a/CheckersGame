@@ -27,8 +27,7 @@ void Game::Menu()
 			<< "| b) Game Logs             \n"
 			<< "| c) Exit                  \n";
 
-		std::cout << "\nSelect from (a - c) \n";
-
+		std::cout << "\nSelect from (a - c) \n"; 
 		std::cin >> tmp; 
 	} 
 	while (tmp != 'a' && tmp != 'b' && tmp != 'c'); 
@@ -37,9 +36,12 @@ void Game::Menu()
 	{
 		case 'a': 
 				LoadGameSettings();
+
 			break; 
 
 		case 'b':
+			Logger.LoadGameNames(); 
+
 			break;
 
 		case 'c':
@@ -268,10 +270,10 @@ void Game::Show_Winners()
 
 void Game::Destroy_All()
 {
-	delete this->Player1; 
-	delete this->Player2; 
-	delete this->board; 
-	delete this->Movement; 
+	kill this->Player1; 
+	kill this->Player2; 
+	kill this->board; 
+	kill this->Movement; 
 	this->currentPlayer = nullptr; 
 }
 

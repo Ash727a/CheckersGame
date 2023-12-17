@@ -1,13 +1,18 @@
 #include <iostream>
 #include "Game.h"
 
+#include "Logs.h" 
 
+
+/*
+
+*/
 int main() 
 {
-	Game game; 
+	Game game;
 
 	while (game.get_programStat())
 	{
-		game.GameP(); 
+		game.GameP();
 	}
 }

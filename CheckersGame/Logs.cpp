@@ -7,7 +7,7 @@ Logs::Logs()
 
 Logs::~Logs()
 {
-
+    Inputs.clear(); // clean out buffer 
 }
 
 void Logs::Input_GameLog(GT::Inputs PawnPos, GT::Diagonal Diagonal, GT::Player currentPlayer) // this should work for all use cases 
@@ -113,3 +113,21 @@ void Logs::AppendGameName(const std::string& GameName)
     delete GameLog;
 }
 
+void Logs::LoadGameNames()
+{
+    std::ifstream* GameNames = new std::ifstream(GT::GameNames, std::ios::binary); 
+    std::string tmpdata; 
+
+    if (GameNames->is_open())
+    {
+        while (!GameNames->eof())
+        {
+            *GameNames >> tmpdata; 
+            std::cout<<"Game: "<< tmpdata << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "Failed to open file \n"; 
+    }
+}

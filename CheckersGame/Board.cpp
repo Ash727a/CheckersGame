@@ -12,7 +12,7 @@ Board::~Board()
 }
 
 // inits the cell states for the grid 
-void Board::initialize_Board()
+void Board::initialize_Board() // initializes the board 
 {
     for (int i = 1; i <= GT::BoardSize; i++)
     {
@@ -37,7 +37,7 @@ void Board::initialize_Board()
 
 
 // update the board based on coordinates called from an arbritary class 
-void Board::UpdateInput(GT::Coord y, GT::Coord x, enum GT::CellState Stone)
+void Board::UpdateInput(GT::Coord y, GT::Coord x, enum GT::CellState Stone) // updates the input of the current cell 
 {
     this->grid[{y, x}] = Stone;
 }
@@ -46,7 +46,6 @@ void Board::UpdateInput(GT::Coord y, GT::Coord x, enum GT::CellState Stone)
 void Board::DrawBoard()
 {
     top_board(); 
-
     uint8_t ctr = 0;
 
     for (auto i = grid.begin(); i != grid.end(); i++)
@@ -55,35 +54,18 @@ void Board::DrawBoard()
 
         switch (i->second)
         {
-            case GT::BPAWN:
-
-                std::cout     << "|  "<<GT::bpawn<<"  "; 
-
-            break;
-
-            case GT::WPAWN: 
-                
-                std::cout     << "|  "<<GT::wpawn<<"  "; 
-            
-            break;
-
-            case GT::EMPTY: 
-
-                std::cout     << "|     ";      
-
-             break;
-
+            case GT::BPAWN: std::cout     << "|  "<<GT::bpawn<<"  "; break;
+            case GT::WPAWN: std::cout     << "|  "<<GT::wpawn<<"  "; 
+            break; case GT::EMPTY: std::cout     << "|     ";      break;
             default: break;
         }
 
         ctr++;
         bottom_board(ctr);
     }
-
-
 }
 
-GT::CellState Board::get_CellState(GT::Coord y, GT::Coord x) const
+GT::CellState Board::get_CellState(GT::Coord y, GT::Coord x) const // returns the cell state 
 {
     GT::Pair pair = std::make_pair(y, x); 
 
@@ -95,6 +77,8 @@ GT::CellState Board::get_CellState(GT::Coord y, GT::Coord x) const
     return GT::EMPTY; 
 }
 
+
+// utility functions for the graphics of the board 
 void Board::top_board()
 {
     std::cout << "\n\n\t\t\tCheckers\t\t\t\t\t\n\n";

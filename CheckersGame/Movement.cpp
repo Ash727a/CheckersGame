@@ -12,6 +12,26 @@ Move::~Move()
 	board = nullptr;
 }
 
+void Move::CoordinateCalculator(GT::Coord& y1, GT::Coord& x1, GT::Diagonal side, GT::CellState currentColor, GT::Coord y, GT::Coord x)
+{
+	switch (side)
+	{
+		case GT::Right:	      
+			y1 = (currentColor == GT::BPAWN) ? y + 1 : y - 1; x1 = (currentColor == GT::BPAWN) ? x - 1 : x + 1; 
+			break;
+		case GT::Left:	      
+			y1 = (currentColor == GT::BPAWN) ? y + 1 : y - 1; x1 = (currentColor == GT::BPAWN) ? x + 1 : x - 1; 
+			break;
+		case GT::BottomRight: 
+			y1 = (currentColor == GT::BPAWN) ? y - 1 : y + 1; x1 = (currentColor == GT::BPAWN) ? x - 1 : x + 1; 
+			break;
+		case GT::BottomLeft:  
+			y1 = (currentColor == GT::BPAWN) ? y - 1 : y + 1; x1 = (currentColor == GT::BPAWN) ? x + 1 : x - 1; 
+			break;
+
+		default: break;
+	}
+}
 
 void Move::MovPlayer(GT::Coord y, GT::Coord x, Player* CurrentPlayer, GT::Diagonal side)
 {
@@ -19,22 +39,13 @@ void Move::MovPlayer(GT::Coord y, GT::Coord x, Player* CurrentPlayer, GT::Diagon
 
 	board->UpdateInput(y, x, GT::EMPTY);
 
-	GT::Coord targetY, targetX;
+	GT::Coord targetY = 0, targetX = 0; 
 
-	switch (side)
-	{
-		case GT::Right:	      targetY = (currentColor == GT::BPAWN) ? y + 1 : y - 1; targetX = (currentColor == GT::BPAWN) ? x - 1 : x + 1; break;
-		case GT::Left:	      targetY = (currentColor == GT::BPAWN) ? y + 1 : y - 1; targetX = (currentColor == GT::BPAWN) ? x + 1 : x - 1; break;
-		case GT::BottomRight: targetY = (currentColor == GT::BPAWN) ? y - 1 : y + 1; targetX = (currentColor == GT::BPAWN) ? x - 1 : x + 1; break;
-		case GT::BottomLeft:  targetY = (currentColor == GT::BPAWN) ? y - 1 : y + 1; targetX = (currentColor == GT::BPAWN) ? x + 1 : x - 1; break;
-
-		default: break;
-	}
+	CoordinateCalculator(targetY, targetX, side, currentColor, y , x); 
 
 	if (board->get_CellState(targetY, targetX) == (currentColor == GT::BPAWN ? GT::WPAWN : GT::BPAWN))
 	{
 		CurrentPlayer->UpdatePlayerPawns();
-		std::cout << "\n" << CurrentPlayer->get_name() << " Scored one!\n\n";
 	}
 
 	board->UpdateInput(targetY, targetX, currentColor);
@@ -54,21 +65,13 @@ bool Move::CheckPlayerPawn(Player* currentPlayer, GT::Coord y, GT::Coord x) // v
 }
 
 
-
 bool Move::Validate_Next(GT::Coord y, GT::Coord x, const GT::Diagonal Side)
 {
 	GT::CellState pawnColor = board->get_CellState(y, x);
 
-	GT::Coord targetY = 0, targetX = 0;
+	GT::Coord targetY = 0; 
+	GT::Coord targetX = 0;
 
-	switch (Side)
-	{
-		case GT::Right:        targetY = (pawnColor == GT::BPAWN) ? y + 1 : y - 1; targetX = (pawnColor == GT::BPAWN) ? x - 1 : x + 1; break;
-		case GT::Left:         targetY = (pawnColor == GT::BPAWN) ? y + 1 : y - 1; targetX = (pawnColor == GT::BPAWN) ? x + 1 : x - 1; break;
-		case GT::BottomLeft:   targetY = (pawnColor == GT::BPAWN) ? y - 1 : y + 1; targetX = (pawnColor == GT::BPAWN) ? x + 1 : x - 1; break;
-		case GT::BottomRight:  targetY = (pawnColor == GT::BPAWN) ? y - 1 : y + 1; targetX = (pawnColor == GT::BPAWN) ? x - 1 : x + 1; break;
-		default: break;
-	}
-
+	CoordinateCalculator(targetY, targetX, Side, pawnColor, y, x); 
 	return Validate_Input(targetY, targetX) && board->get_CellState(targetY, targetX) != pawnColor;
 }

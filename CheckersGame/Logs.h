@@ -25,6 +25,7 @@ class Logs {
 		void Write_Inputs			(const std::string&);
 		void Read_Inputs			(const std::string& GameName);
 		void AppendGameName         (const std::string&); 
+		void LoadGameNames			(); 
 
 };
 

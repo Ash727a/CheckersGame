@@ -6,6 +6,9 @@
 #include <set>
 #include <list>
 
+
+#define kill delete 
+
 namespace GT
 {
 
@@ -19,17 +22,18 @@ namespace GT
 	typedef uint8_t                                               Score;
 	typedef std::string                                           Player;
 	typedef int                                                   Coord;
-	typedef std::map<std::pair<Coord, Coord>, GT::CellState>      Grid;
+	typedef std::map<std::pair<Coord, Coord>, GT::CellState>      Grid; // associative array 
 	typedef bool                                                  PlayerState;
 	typedef char                                                  Diagonal; 
 	typedef std::pair<Coord, Coord>                               Pair; 
 	typedef char                                                  Character; 
-	typedef std::string					      Inputs; 
-	typedef std::set<std::pair<char, char>>			      InputHolder;
-	typedef bool					              Check; 
-	typedef int					              Pawnss; 
-	typedef std::string				              GameName; 
+	typedef std::string											  Inputs; 
+	typedef std::set<std::pair<char, char>>						  InputHolder; // can be replaced with  avl 
+	typedef bool												  Check; 
+	typedef int													  Pawnss; 
+	typedef std::string											  GameName; 
 	typedef bool                                                  GameStatus;
+                                       
 
 	
 	struct GameInput {
@@ -61,11 +65,13 @@ namespace GT
 	const Diagonal  Right        = 0x52;
 	const Diagonal  BottomRight  = 0x4B; 
 	const Diagonal  BottomLeft   = 0x42;
+	const Score     totalScore   = 0x0C; 
 
 
 	const Filename GameLog   = "GameLogs";
 	const Filename ScoreLog  = "ScoreLogs"; 
 	const Filename GameNames = "GameNameLog"; 
+
 
 };
 
